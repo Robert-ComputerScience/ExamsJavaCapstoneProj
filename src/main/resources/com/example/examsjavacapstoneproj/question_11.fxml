@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox
+        spacing="15.0"
+        alignment="CENTER_LEFT"
+        xmlns:fx="http://javafx.com/fxml/1"
+        xmlns="http://javafx.com/javafx/17"
+        fx:controller="com.example.examsjavacapstoneproj.QuestionController">
+
+    <padding>
+        <Insets top="20.0" right="25.0" bottom="20.0" left="25.0" />
+    </padding>
+
+    <Label fx:id="questionLabel" text="What is the correct way to declare a constant variable in Java?" styleClass="question-label" wrapText="true" />
+
+    <VBox fx:id="optionsContainer" spacing="10.0">
+        <padding>
+            <Insets top="10.0" />
+        </padding>
+
+        <RadioButton fx:id="opt1" text="const int MY_NUM = 5;">
+            <toggleGroup>
+                <ToggleGroup fx:id="optionsGroup" />
+            </toggleGroup>
+        </RadioButton>
+        <RadioButton fx:id="opt2" text="int MY_NUM = 5;" toggleGroup="$optionsGroup" />
+        <RadioButton fx:id="opt3" text="final int MY_NUM = 5;" toggleGroup="$optionsGroup" />
+        <RadioButton fx:id="opt4" text="static int MY_NUM = 5;" toggleGroup="$optionsGroup" />
+    </VBox>
+
+    <HBox alignment="CENTER" spacing="15.0">
+        <padding>
+            <Insets top="15.0" />
+        </padding>
+
+        <Button fx:id="prevButton" text="Previous" onAction="#handlePrevious" />
+        <Button fx:id="nextButton" text="Next" onAction="#handleNext" />
+    </HBox>
+
+</VBox>
