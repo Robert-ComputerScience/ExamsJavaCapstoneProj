@@ -1,12 +1,152 @@
 [
   {
-    "questionText": "Which of these is the correct syntax for the main Method in Java?",
-    "options": ["public static void main(String[] args)", "public static main(String[] args)", "void main(String[] args)"],
-    "correctAnswer": "public static void main(String[] args)"
+    "questionText": "Which of these is the correct syntax for the main method in a Java program?",
+    "options": [
+      "public void main(String[] args)",
+      "public static void main(String[] args)",
+      "public static int main(String[] args)",
+      "private static void main(String[] args)"
+    ],
+    "correctAnswerIndex": 1
   },
   {
-    "questionText": "Which primitive data type is used for single characters?",
-    "options": ["string", "char", "character"],
-    "correctAnswer": "char"
+    "questionText": "HTML: Which tag is used to define a client-side script?",
+    "options": [
+      "<scripting>",
+      "<js>",
+      "<java>",
+      "<script>"
+    ],
+    "correctAnswerIndex": 3
+  },
+  {
+    "questionText": "Which keyword is used to inherit a class in Java?",
+    "options": [
+      "implements",
+      "inherits",
+      "extends",
+      "super"
+    ],
+    "correctAnswerIndex": 2
+  },
+  {
+    "questionText": "JavaFX: Which property is used to set the text of a Label programmatically?",
+    "options": [
+      ".textValue()",
+      ".setText()",
+      ".textProperty().set()",
+      "Both B and C"
+    ],
+    "correctAnswerIndex": 3
+  },
+  {
+    "questionText": "Which of these data types is a primitive type?",
+    "options": [
+      "String",
+      "Integer",
+      "char",
+      "Object"
+    ],
+    "correctAnswerIndex": 2
+  },
+  {
+    "questionText": "Which collection class does NOT allow duplicate elements?",
+    "options": [
+      "ArrayList",
+      "LinkedList",
+      "HashSet",
+      "HashMap"
+    ],
+    "correctAnswerIndex": 2
+  },
+  {
+    "questionText": "What method is used to get the length of a String object?",
+    "options": [
+      "size()",
+      "length()",
+      "len()",
+      "count()"
+    ],
+    "correctAnswerIndex": 1
+  },
+  {
+    "questionText": "Which of these is used to create an instance of a class?",
+    "options": [
+      "new",
+      "create",
+      "instance",
+      "build"
+    ],
+    "correctAnswerIndex": 0
+  },
+  {
+    "questionText": "What does the == operator compare when used with objects?",
+    "options": [
+      "The values inside the objects.",
+      "The memory addresses of the objects.",
+      "The class types of the objects.",
+      "It cannot be used with objects."
+    ],
+    "correctAnswerIndex": 1
+  },
+  {
+    "questionText": "Which block of code is always executed after a try block, regardless of whether an exception was thrown?",
+    "options": [
+      "catch",
+      "throw",
+      "finally",
+      "execute"
+    ],
+    "correctAnswerIndex": 2
+  },
+  {
+    "questionText": "What is the correct way to declare a constant variable in Java?",
+    "options": [
+      "const int MY_NUM = 5;",
+      "int MY_NUM = 5;",
+      "final int MY_NUM = 5;",
+      "static int MY_NUM = 5;"
+    ],
+    "correctAnswerIndex": 2
+  },
+  {
+    "questionText": "Which method must be implemented by a class that implements the Runnable interface?",
+    "options": [
+      "start()",
+      "execute()",
+      "init()",
+      "run()"
+    ],
+    "correctAnswerIndex": 3
+  },
+  {
+    "questionText": "What is the superclass of all classes in Java?",
+    "options": [
+      "System",
+      "Object",
+      "Main",
+      "Class"
+    ],
+    "correctAnswerIndex": 1
+  },
+  {
+    "questionText": "Which of these access modifiers provides the widest accessibility?",
+    "options": [
+      "public",
+      "protected",
+      "private",
+      "default (no modifier)"
+    ],
+    "correctAnswerIndex": 0
+  },
+  {
+    "questionText": "What will the following code output? System.out.println(\"Java\".equals(\"java\"));",
+    "options": [
+      "true",
+      "false",
+      "1",
+      "Compilation Error"
+    ],
+    "correctAnswerIndex": 1
   }
 ]
