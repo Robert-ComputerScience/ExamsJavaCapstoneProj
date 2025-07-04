@@ -1,69 +1,93 @@
 package com.example.examsjavacapstoneproj;
 
-
+import com.example.examsjavacapstoneproj.model.Question;
+import com.example.examsjavacapstoneproj.service.QuizDataService;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
-
-import java.io.File;
 import java.io.IOException;
 
-/**
- * A reusable controller for the standard question pages (1 through 14).
- * It handles loading question data, saving the user's answer, and navigating
- * to the next or previous question.
- */
 public class QuestionController {
 
+    @FXML private Label questionLabel;
+    @FXML private VBox optionsContainer;
+    @FXML private Button previousButton;
+    @FXML private Button nextButton;
+    @FXML private ToggleGroup optionsGroup;
+
+    private final QuizDataService quizService = new QuizDataService();
+    private int questionIndex;
+
     @FXML
-    private VBox rootPane; // Add fx:id="rootPane" to the root VBox in your FXML
+    public void initialize() {
+        // Get the current question index from the shared state
+        this.questionIndex = QuizState.getInstance().getCurrentQuestionIndex();
+        displayQuestion();
+    }
 
+    private void displayQuestion() {
+        Question question = quizService.getQuestion(this.questionIndex);
+        if (question == null) return;
 
-    // This would be populated with logic to load question text and options
-    // from a central source based on the current page number.
-    // For this example, the logic is conceptual.
+        questionLabel.setText(question.getQuestionText());
 
-    /**
-     * Saves the currently selected answer to the central QuizState.
-     */
-    private void saveCurrentAnswer() {
-        // Conceptual: Get the question index (e.g., 0 for question 1).
-        int questionIndex = 0; // This would be determined dynamically.
+        // Create and display radio buttons for the options
+        optionsContainer.getChildren().clear();
+        for (String optionText : question.getOptions()) {
+            RadioButton rb = new RadioButton(optionText);
+            rb.setToggleGroup(optionsGroup);
+            optionsContainer.getChildren().add(rb);
+        }
 
-        // Conceptual: Get the selected radio button index (0-3).
-        int selectedAnswerIndex = 1; // This would be read from the ToggleGroup.
+        // Restore the user's previous answer for this question
+        int savedAnswer = QuizState.getInstance().getAnswer(this.questionIndex);
+        if (savedAnswer != -1 && savedAnswer < optionsContainer.getChildren().size()) {
+            ((RadioButton) optionsContainer.getChildren().get(savedAnswer)).setSelected(true);
+        }
 
-        QuizState.getInstance().setAnswer(questionIndex, selectedAnswerIndex);
+        // Disable buttons if at the start or end of the quiz
+        previousButton.setDisable(this.questionIndex == 0);
+        nextButton.setDisable(this.questionIndex == quizService.getQuestionCount() - 1);
+    }
+
+    private void saveAnswer() {
+        RadioButton selected = (RadioButton) optionsGroup.getSelectedToggle();
+        if (selected != null) {
+            int selectedIndex = optionsContainer.getChildren().indexOf(selected);
+            QuizState.getInstance().setAnswer(this.questionIndex, selectedIndex);
+        }
     }
 
     @FXML
-    private void handleNext() throws IOException {
-        // Get the name of the current FXML file (e.g., "question_2.fxml")
-        String url = rootPane.getScene().getRoot().getProperties().get("URL").toString();
-        String currentFxml = new File(url).getName();
-
-        // Extract the number and calculate the next index
-        int currentIndex = Integer.parseInt(currentFxml.replaceAll("[^0-9]", ""));
-        int nextIndex = currentIndex + 1;
-
-        // Construct just the simple filename for the next page
-        String nextFxml = "question_" + nextIndex + ".fxml";
-
-        // Pass the simple filename to the PageLoader
-        PageLoader.loadPage(nextFxml);
+    private void handleNext() {
+        saveAnswer();
+        if (questionIndex < quizService.getQuestionCount() - 1) {
+            // Update the index in the shared state
+            QuizState.getInstance().setCurrentQuestionIndex(questionIndex + 1);
+            try {
+                // Load the next question's FXML file
+                PageLoader.loadPage("question_" + (questionIndex + 2) + ".fxml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    // You would create a similar handlePrevious() method
     @FXML
-    private void handlePrevious() throws IOException {
-        String currentFxml = new File(rootPane.getScene().getRoot().getProperties().get("URL").toString()).getName();
-        int currentIndex = Integer.parseInt(currentFxml.replaceAll("[^0-9]", ""));
-        int prevIndex = currentIndex - 1;
-
-        // Disable the "Previous" button if on the first question
-        if (prevIndex > 0) {
-            String prevFxml = "question_" + prevIndex + ".fxml";
-            PageLoader.loadPage(prevFxml);
+    private void handlePrevious() {
+        saveAnswer();
+        if (questionIndex > 0) {
+            // Update the index in the shared state
+            QuizState.getInstance().setCurrentQuestionIndex(questionIndex - 1);
+            try {
+                // Load the previous question's FXML file
+                PageLoader.loadPage("question_" + (questionIndex) + ".fxml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
-

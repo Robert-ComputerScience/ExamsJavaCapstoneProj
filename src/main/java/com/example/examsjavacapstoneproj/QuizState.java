@@ -12,6 +12,8 @@ public final class QuizState {
     // 1. Instance: A single, private, and final instance of the class.
     private static final QuizState instance = new QuizState();
 
+    private int currentQuestionIndex = 0;
+
     // 4. Stage Reference: Holds a reference to the main application window.
     private Stage primaryStage;
 
@@ -86,5 +88,12 @@ public final class QuizState {
      */
     public int[] getUserAnswers() {
         return this.userAnswers;
+    }
+    public int getCurrentQuestionIndex() {
+        return currentQuestionIndex;
+    }
+
+    public void setCurrentQuestionIndex(int index) {
+        this.currentQuestionIndex = index;
     }
 }

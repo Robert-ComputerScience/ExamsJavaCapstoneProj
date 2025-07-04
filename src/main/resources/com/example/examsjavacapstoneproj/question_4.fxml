@@ -41,7 +41,7 @@
             <Insets top="15.0" />
         </padding>
 
-        <Button fx:id="prevButton" text="Previous" onAction="#handlePrevious" />
+        <Button fx:id="previousButton" text="Previous" onAction="#handlePrevious" />
         <Button fx:id="nextButton" text="Next" onAction="#handleNext" />
     </HBox>
 

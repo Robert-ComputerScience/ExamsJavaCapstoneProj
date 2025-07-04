@@ -1,0 +1,12 @@
+[
+  {
+    "questionText": "Which of these is the correct syntax for the main Method in Java?",
+    "options": ["public static void main(String[] args)", "public static main(String[] args)", "void main(String[] args)"],
+    "correctAnswer": "public static void main(String[] args)"
+  },
+  {
+    "questionText": "Which primitive data type is used for single characters?",
+    "options": ["string", "char", "character"],
+    "correctAnswer": "char"
+  }
+]
