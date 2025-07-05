@@ -1,6 +1,11 @@
 package com.example.examsjavacapstoneproj;
 
+import com.example.examsjavacapstoneproj.model.Question;
 import javafx.stage.Stage;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Manages the global state of the quiz using the Singleton pattern.
@@ -9,28 +14,20 @@ import javafx.stage.Stage;
  */
 public final class QuizState {
 
-    // 1. Instance: A single, private, and final instance of the class.
     private static final QuizState instance = new QuizState();
 
+    private Stage primaryStage;
+    private List<Question> questions;
     private int currentQuestionIndex = 0;
 
-    // 4. Stage Reference: Holds a reference to the main application window.
-    private Stage primaryStage;
-
-    // 2. User Answers: Stores the user's selection for each question.
-    private final int[] userAnswers = new int[15];
-
-    // 3. Correct Answers: A constant array holding the correct answer indexes.
-    public final int[] correctAnswers = {2, 3, 1, 3, 2, 2, 1, 2, 2, 2, 2, 1, 2, 3, 2};
+    // Use a Map for flexible answer storage (question index -> selected option index)
+    private final Map<Integer, Integer> userAnswers = new HashMap<>();
 
     /**
      * Private constructor to prevent external instantiation.
-     * It initializes the userAnswers array to -1, signifying "unanswered".
      */
     private QuizState() {
-        for (int i = 0; i < userAnswers.length; i++) {
-            userAnswers[i] = -1;
-        }
+        // Initialization is no longer needed for the Map
     }
 
     /**
@@ -41,59 +38,42 @@ public final class QuizState {
         return instance;
     }
 
-    // --- Public Methods for State Management ---
+    // --- Getters and Setters for State Management ---
 
-    /**
-     * Stores a reference to the main application Stage.
-     * @param stage The primary stage from the start() method.
-     */
-    public void setPrimaryStage(Stage stage) {
-        this.primaryStage = stage;
-    }
-
-    /**
-     * Retrieves the main application Stage.
-     * @return The primary stage.
-     */
     public Stage getPrimaryStage() {
         return this.primaryStage;
     }
 
-    /**
-     * Records the user's answer for a specific question.
-     * @param questionIndex The index of the question (0-14).
-     * @param answerIndex The index of the selected answer (0-3).
-     */
-    public void setAnswer(int questionIndex, int answerIndex) {
-        if (questionIndex >= 0 && questionIndex < userAnswers.length) {
-            this.userAnswers[questionIndex] = answerIndex;
-        }
+    public void setPrimaryStage(Stage stage) {
+        this.primaryStage = stage;
     }
 
-    /**
-     * Retrieves the user's recorded answer for a specific question.
-     * @param questionIndex The index of the question (0-14).
-     * @return The user's selected answer index, or -1 if unanswered.
-     */
-    public int getAnswer(int questionIndex) {
-        if (questionIndex >= 0 && questionIndex < userAnswers.length) {
-            return this.userAnswers[questionIndex];
-        }
-        return -1; // Return -1 for an invalid index.
+    public List<Question> getQuestions() {
+        return questions;
     }
 
-    /**
-     * Returns the entire array of user answers. Useful for final grade calculation.
-     * @return The array of user answers.
-     */
-    public int[] getUserAnswers() {
-        return this.userAnswers;
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
+
     public int getCurrentQuestionIndex() {
         return currentQuestionIndex;
     }
 
     public void setCurrentQuestionIndex(int index) {
         this.currentQuestionIndex = index;
+    }
+
+    public void setAnswer(int questionIndex, int answerIndex) {
+        userAnswers.put(questionIndex, answerIndex);
+    }
+
+    public int getAnswer(int questionIndex) {
+        // Returns the user's answer, or -1 if the question hasn't been answered
+        return userAnswers.getOrDefault(questionIndex, -1);
+    }
+
+    public Map<Integer, Integer> getUserAnswers() {
+        return this.userAnswers;
     }
 }

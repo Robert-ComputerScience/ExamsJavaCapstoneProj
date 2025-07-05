@@ -1,20 +1,26 @@
 module com.example.examsjavacapstoneproj {
+    // Required modules for JavaFX
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.graphics; // Often needed
     requires javafx.web;
 
-    requires org.controlsfx.controls;
-    requires com.dlsc.formsfx;
-    requires net.synedra.validatorfx;
-    requires org.kordamp.ikonli.javafx;
-    requires org.kordamp.bootstrapfx.core;
-    requires eu.hansolo.tilesfx;
-    requires com.almasb.fxgl.all;
+    // Required modules for AI service and JSON parsing
+    requires okhttp3;
     requires com.google.gson;
 
-    opens com.example.examsjavacapstoneproj to javafx.fxml;
-    exports com.example.examsjavacapstoneproj;
+    // Open main package for JavaFX
+    opens com.example.examsjavacapstoneproj to javafx.fxml, javafx.graphics;
 
-    // Add this line to grant Gson access to your model package
+    // Export and open the model package
+    exports com.example.examsjavacapstoneproj.model;
     opens com.example.examsjavacapstoneproj.model to com.google.gson;
+
+    // Export and open the controller package
+    exports com.example.examsjavacapstoneproj.controller;
+    opens com.example.examsjavacapstoneproj.controller to javafx.fxml;
+
+    // Export the service package
+    exports com.example.examsjavacapstoneproj.service;
+    exports com.example.examsjavacapstoneproj;
 }

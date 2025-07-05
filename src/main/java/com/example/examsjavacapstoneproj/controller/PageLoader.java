@@ -1,5 +1,6 @@
-package com.example.examsjavacapstoneproj;
+package com.example.examsjavacapstoneproj.controller;
 
+import com.example.examsjavacapstoneproj.QuizState;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
