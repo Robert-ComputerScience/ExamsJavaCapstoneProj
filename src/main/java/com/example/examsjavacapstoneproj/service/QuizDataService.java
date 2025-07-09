@@ -14,7 +14,7 @@ import java.util.List;
 public class QuizDataService {
 
     // Path to your local questions file in the resources folder
-    private static final String QUESTIONS_FILE_PATH = "/com/example/examsjavacapstoneproj/questions.json";
+    private static final String QUESTIONS_FILE_PATH = "/com/example/examsjavacapstoneproj/questions_emh_g1-5.json";
     private final AIQuestionService aiService = new AIQuestionService();
 
     /**
@@ -44,18 +44,24 @@ public class QuizDataService {
     }
 
     /**
-     * Generates a new test with 15 unique questions created by AI.
+     * Generates a new test with 15 unique questions for English, Math, and History
+     * suitable for grade levels 1 to 5, created by AI.
      * @return A list containing 15 new questions.
      */
-    public List<Question> generateAITest() {
+    public List<Question> generateMixedSubjectTest() {
         try {
-            // Call the AI service to generate 15 questions
-            return aiService.generateJavaQuestions(15);
+            // Define the subjects, grade level, and number of questions
+            String subjects = "English, Math, History";
+            String gradeLevel = "1 to 5";
+            int numberOfQuestions = 15;
+
+            // Call the AI service to generate the questions
+            return aiService.generateQuestions(subjects, gradeLevel, numberOfQuestions);
         } catch (IOException e) {
             System.err.println("Failed to generate questions using AI: " + e.getMessage());
             e.printStackTrace();
-            // You could have a fallback here to load from a local file if the API fails
-            return null;
+            // Fallback: load questions from the local file if the API fails
+            return loadAllQuestions();
         }
     }
 }
